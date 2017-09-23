@@ -1,25 +1,30 @@
 <?php
 
-namespace chatkun;
+namespace Chatkunna;
+
+
 
 use Pusher\Pusher;
 
-class Chatkun
+class Chatkunna
 {
     private $pusher;
     private $userId;
     private $event;
 
-    public function __construct($auth_key, $secret, $app_id)
+    public function __construct($auth_key, $secret, $app_id, $cluster = null)
     {
         /** Set default value for testing. */
         $this->userId = 'my-channel';
         $this->event = 'my-event';
 
         $options = array(
-            'cluster' => 'ap1',
             'encrypted' => true
         );
+
+        if ($cluster != null) {
+            $options['cluster'] = $cluster;
+        }
         $this->pusher = new Pusher(
             $auth_key,
             $secret,
